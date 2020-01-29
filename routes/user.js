@@ -4,6 +4,7 @@ const router = require("express").Router();
 const passport = require("passport");
 const User = require("../models/user.js");
 const Tweet = require("../models/tweet.js");
+const {check, validationResult} = require('express-validator');
 
 router.use(require("body-parser").urlencoded({ extended: true }));
 
@@ -13,30 +14,49 @@ router.get("/register", function(req, res){
 });
 
 // CREATE /signup - Create new user, Log user in, then redirect
-router.post("/register", function(req, res){
-    var newUser = new User(
-        {
-            user: {
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-                location: req.body.location,
-                color: req.body.color,
-                description: ""
-            },
-            username: req.body.username,
-            email: req.body.email
-        });
-
-    User.register(newUser, req.body.password, function(err){
-        if(err){
-            console.log('here:', err);
-            return res.render("user/signup", { page: req.url });
-        }
-        passport.authenticate("local")(req, res, function(){
-            req.flash('message', 'welcome home');
-            res.redirect("/");
-        });
-    });
+router.post("/register", [
+    check('email').not().isEmpty().isLength({ max: 1000 }).escape(),
+    check('username').not().isEmpty().isLength({ min: 3, max: 1000 }).escape().custom(value => !/\s/.test(value)).withMessage('No spaces are allowed in the username'),
+    check('password').not().isEmpty().isLength({ min: 5, max: 40 }).escape().withMessage('Password must be at least 5 characters'),
+    check('location').not().isEmpty().isLength({ max: 1000 }).escape(),
+    check('color').not().isEmpty().isLength({ max: 1000 }).escape()
+], function(req, res){
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        console.log(errors.array());
+        return res.render("user/signup", { page: req.url, errors: errors.array() });
+    } else {
+        User.findOne({username: req.body.username.toLowerCase()}).then(function(err, userData){
+            if (!err) {
+                var newUser = new User(
+                    {
+                        user: {
+                            location: req.body.location,
+                            color: req.body.color,
+                            description: ""
+                        },
+                        username: req.body.username.toLowerCase(),
+                        email: req.body.email
+                    });
+            
+                User.register(newUser, req.body.password, function(err){
+                    if(err){
+                        console.log('here:', err);
+                        return res.render("user/signup", { page: req.url });
+                    }
+                    passport.authenticate("local")(req, res, function(){
+                        req.flash('message', 'welcome home');
+                        res.redirect("/");
+                    });
+                });
+            } else {
+                console.log('user already exists')
+                req.flash('message', 'user already exists');
+                return res.render("user/signup", { page: req.url });
+            }
+        })
+    }
+    
 });
 
 // LOGIN SHOW PAGE
