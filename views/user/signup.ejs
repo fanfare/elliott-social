@@ -7,7 +7,6 @@
 <main>
 
 	<% if(typeof errors !== 'undefined') { %>
-		<p>Please fix the following:</p>
 		<% errors.forEach(function(message) { %>
 			<em><%= message.param %> </em>- <%= message.msg %><br />
 		<% }) %>
