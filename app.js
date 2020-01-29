@@ -32,8 +32,8 @@ app.use(session({
     secret: "Secret Login Strategy",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: new Date(Date.now() + 3600000) },
-    maxAge: new Date(Date.now() + 3600000),
+    cookie: { maxAge: 3600000 },
+    maxAge: 3600000,
     store: new MongoStore({mongooseConnection:mongoose.connection}) 
 }));
 
