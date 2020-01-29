@@ -85,7 +85,7 @@ section {
     display: inline-block;
     cursor: pointer;
 }
-#preview-tab-content, #favorites-tab-content {display: none;}
+#edit-tab-content, #favorites-tab-content {display: none;}
 .current-tab {
     border: 1px solid #000 !important;
 }
