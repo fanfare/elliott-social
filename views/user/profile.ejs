@@ -59,6 +59,18 @@
                         <input class="form-control" name="color" value="<%= (profile.user.color == null) ? '#32a852' : profile.user.color  %>" type="color" placeholder="#32a852" required>
                     </div>
                     <div class="form-group">
+                        <label class="editShapeLabel" for="shape">Shape</label>
+                        <select name="shape">
+                            <option value="" disabled="" selected="<%= profile.user.shape %>" hidden=""><%= profile.user.shape %></option>
+                            <option value="flower">flower</option>
+                            <option value="hand">hand</option>
+                            <option value="heart">heart</option>
+                            <option value="leaf">leaf</option>
+                            <option value="pebble">pebble</option>
+                            <option value="star">star</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                     <button class="regular-button">Save</button>
                 </form>
             </section>
@@ -92,9 +104,9 @@
     <% } } else { %>
     <div>
     <% } %>
-        <span class="box large" style="background-color: <%= profile.user.color %> !important;"></span> 
+        <span class="box large" style="background-color: <%= profile.user.color %> !important;"></span>
         <h2>
-            <%= profile.username %>
+            <%= profile.username %> <% if(profile.user.shape){ %><span class="shape <%= profile.user.shape %>"></span><% } %>
         </h2>
 
         <p>

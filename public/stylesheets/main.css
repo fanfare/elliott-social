@@ -88,6 +88,22 @@ section {
 .current-tab {
     border: 1px solid #000 !important;
 }
+/* Shapes */
+.shape {
+    width: 30px;
+    height: 30px;
+    background-size: 100% 100%;
+    background-repeat: none;
+    background-position: center;
+    display: inline-block;
+}
+.leaf {background-image: url('../images/leaf.svg');}
+.hand {background-image: url('../images/hand.svg');}
+.heart {background-image: url('../images/heart.svg');}
+.mushroom {background-image: url('../images/mushroom.svg');}
+.pebble {background-image: url('../images/pebble.svg');}
+.star {background-image: url('../images/star.svg');}
+.flower {background-image: url('../images/flower.svg');}
 
 /* Form */
 .form-group {

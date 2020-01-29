@@ -7,8 +7,10 @@ var UserSchema = new mongoose.Schema({
         lastname: String,
         location: String,
         website: String,
+        description: String,
         // image: {type: String, default: "/images/blank-profile.png"},
         image: String,
+        shape: String,
         color: {type: String},
         songs: {
             song1: String,
@@ -33,8 +35,7 @@ var UserSchema = new mongoose.Schema({
         },
         friends: [{
             friend_id: String,
-        }],
-        description: String
+        }]
     },
     email: String, 
     username: String, 

@@ -170,8 +170,7 @@ router.put("/:username", isLoggedIn, function(req, res){
                 profile.user.description = req.body.description;
                 profile.user.location = req.body.location;
                 profile.user.website = req.body.website;
-                profile.user.image = req.body.image;
-                profile.user.birthday = req.body.birthday;
+                profile.user.shape = req.body.shape;
                 profile.user.color = req.body.color;
                 profile.username = req.body.username;
                 profile.user.songs = {
