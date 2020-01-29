@@ -16,7 +16,7 @@ const app = express()
 
 /* connect to database */
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/wish", {
+mongoose.connect("mongodb://localhost/elliott_social", {
     useMongoClient: true,
 })
 
