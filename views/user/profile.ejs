@@ -61,6 +61,7 @@
                     <div class="form-group">
                         <label class="editShapeLabel" for="shape">Shape</label>
                         <select name="shape">
+                            <option <% if(profile.user.shape == '') { %>selected<% } %> value=""></option>
                             <option <% if(profile.user.shape == 'flower') { %>selected<% } %> value="flower">flower</option>
                             <option <% if(profile.user.shape == 'heart') { %>selected<% } %> value="heart">heart</option>
                             <option <% if(profile.user.shape == 'leaf') { %>selected<% } %> value="leaf">leaf</option>
