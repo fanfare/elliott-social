@@ -1,20 +1,24 @@
-const express               = require("express"),
-    LocalStrategy           = require("passport-local"),
-    //passportLocalMongoose   = require("passport-local-mongoose"),
-    passport                = require("passport"),
-    methodOverride          = require("method-override"),
-    bodyParser              = require("body-parser"),
-    mongoose                = require("mongoose"),
-    routes                  = require("./routes"),
-    User                    = require("./models/user"),
-    path                    = require("path"),
-    session                 = require("express-session"),
-    PORT                    = 3001,
-    seedDB                  = require("./seeds"),
-    app                     = express();
+const express = require("express")
+const LocalStrategy = require("passport-local")
+const passport = require("passport")
+const methodOverride = require("method-override")
+const bodyParser = require("body-parser")
+const flash = require('express-flash');
+const routes = require("./routes")
+const User = require("./models/user")
+const path = require("path")
+const session = require("express-session")
+const MongoStore = require('connect-mongo')(session)
+const mongoose = require("mongoose")
+const PORT = 3001
+const seedDB = require("./seeds")
+const app = express()
 
 /* connect to database */
-mongoose.connect("mongodb://localhost/twitter_clone_v3");
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://localhost/wish", {
+    useMongoClient: true,
+})
 
 /* view engine setup */
 app.set("views", path.join(__dirname, "views"));
@@ -22,35 +26,44 @@ app.set("view engine", "ejs");
 
 /* configure the server */
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(flash());
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method")); // Must use _method to use alternative routes such as DELETE & PUT
 app.use(session({
-    secret: "Twitter Clone Secret Login Strategy",
+    secret: "Secret Login Strategy",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: { maxAge: new Date(Date.now() + 3600000) },
+    maxAge: new Date(Date.now() + 3600000),
+    store: new MongoStore({mongooseConnection:mongoose.connection}) 
 }));
 
 // Setup Passportjs Auth
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(new LocalStrategy({
+    usernameField: 'email'
+}, User.authenticate()));
+
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Middleware to include user information
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    res.locals.sessionFlash = req.session.sessionFlash;
+    delete req.session.sessionFlash;
     next();
 });
 
 /* seed database with sample tweets */
-seedDB();
+// seedDB();
 
 /* add our routes */
 app.use("/", routes);
 
 // setup server for localhost on port 3001
-app.listen(PORT, "localhost", function() {
-    console.log(`Twitter Clone Server Started on port ${PORT}`);
+app.listen(PORT, process.env.IP || '0.0.0.0', () => {
+    console.log(`connected to database, app listening on port ${PORT}`)
 });

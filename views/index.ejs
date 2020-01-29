@@ -28,9 +28,9 @@
 
                                 <% if(currentUser) { %>
                                     <% if(currentUser.username == tweet.user.username){ %>
-                                        <img class="thumbnail" src="<%= currentUser.user.image %>">
+                                        <!-- <img class="thumbnail" src="<%= currentUser.user.image %>"> -->
                                         <% } else { %>
-                                            <img class="thumbnail" src="<%= tweet.image %>">
+                                            <!-- <img class="thumbnail" src="<%= tweet.image %>"> -->
                                             <% } %>
                                                 <% } %>
 
@@ -41,25 +41,13 @@
                             <!-- Tweet -->
                             <div class="col-sm-11 col-tweet">
                                 <p>
-                                    <strong><%= tweet.user.username %></strong> |
+                                    <strong><a href="<%= tweet.user.username %>"><%= tweet.user.username %></a></strong> |
                                     <%= tweet.date.toString().substring(4, 15) %>
                                 </p>
 
                                 <p>
                                     <%= tweet.tweet %>
                                 </p>
-
-                                <ul class='list-inline'>
-                                    <li><i class="fa fa-reply" aria-hidden="true" alt="Replies: "></i>
-                                        <%= tweet.meta.replies %>
-                                    </li>
-                                    <li><i class="fa fa-retweet" aria-hidden="true" alt="Retweets: "></i>
-                                        <%= tweet.meta.retweets %>
-                                    </li>
-                                    <li><i class="fa fa-heart" aria-hidden="true" alt="Likes: "></i>
-                                        <%= tweet.meta.likes %>
-                                    </li>
-                                </ul>
 
                                 <p>
                                     <!-- If there is a user logged in & profile viewing is the same as user -->
@@ -68,8 +56,8 @@
                                             <form action='/tweets/<%= tweet._id %>?_method=DELETE' class="delete-form" method='POST'>
                                                 <button class='btn btn-danger btn-xs'>Delete</button>
                                             </form>
-                                            <% } %>
-                                                <% } %>
+                                        <% } %>
+                                    <% } %>
                                 </p>
                                 <hr>
                             </div>

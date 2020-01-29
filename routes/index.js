@@ -7,8 +7,28 @@ const userRoutes = require("./user.js");
 
 
 /* show home page */
-router.get("/", function(req, res) {
-    res.render("landing");
+router.get("/", async function(req, res) {
+    User.aggregate([{$sample: {size: 200}}], async function(err, allUsers) {
+        if (err) {
+            console.log(err);
+        } else {
+            if(req.isAuthenticated()){
+                User.findOne({username: res.locals.currentUser.username}, 'user').then(function(data){
+                    var friendsArray = data.user.friends.map(function(friend) { 
+                      return User.findOne({_id: friend.friend_id }).exec() 
+                    });
+                    return Promise.all(friendsArray);
+                }).then(function(friendsList){
+                    res.render("landing", { page: req.url, users: allUsers, friends: friendsList });
+                    console.log(friendsList);
+                }).catch(function(err) {
+                    throw err;
+                })
+            } else { 
+                res.render("landing", { page: req.url, users: allUsers });
+            }
+        }
+    });
 });
 
 // INDEX - show all tweets
@@ -32,7 +52,7 @@ router.get("/tweets", function(req, res) {
                         } else {
                             // Sort tweets by date (latest first) & show them on index page
                             allTweets = (req.query.sortByDate == "1" ? oldestTweetsByDate(allTweets) : latestTweetsByDate(allTweets));
-                            res.render("index", { tweets: allTweets });
+                            res.render("index", { page: req.url, tweets: allTweets });
                         }
                     });
                 } else {
@@ -47,7 +67,7 @@ router.get("/tweets", function(req, res) {
                         } else {
                             // Sort tweets by date
                             allTweets = latestTweetsByDate(allTweets);
-                            res.render("index", { tweets: allTweets });
+                            res.render("index", { page: req.url, tweets: allTweets });
                         }
                     });
                 }
@@ -62,7 +82,7 @@ router.get("/tweets", function(req, res) {
             } else {
                 // Sort tweets by date
                 allTweets = latestTweetsByDate(allTweets);
-                res.render("index", { tweets: allTweets });
+                res.render("index", { page: req.url, tweets: allTweets });
             }
         });
     }
@@ -77,9 +97,9 @@ router.post("/tweets", isLoggedIn, function(req, res) {
             res.redirect("/tweets");
         } else {
             // Increment tweets on profile 
-            var tweetAmnt = profile.meta.tweets + 1;
-            profile.meta.tweets = tweetAmnt;
-            profile.save();
+            // var tweetAmnt = profile.meta.tweets + 1;
+            // profile.meta.tweets = tweetAmnt;
+            // profile.save();
             // Create a new tweet
             Tweet.create(newTweet, function(err, tweet) {
                 if (err) {
@@ -111,22 +131,26 @@ router.delete("/tweets/:id", isLoggedIn, function(req, res) {
             // Check to make sure the currentUser trying to delete tweet is the creator
             if (res.locals.currentUser.username == tweet.user.username) {
                 // remove tweet from DB & redirect
-                User.findOne({username: res.locals.currentUser}, function(err, profile){
-                    if(err){
-                        console.log(err);
-                        res.redirect("/tweets");
-                    } else {
-                        // Decrement tweets in profile
-                        if(profile.meta.tweets > 0){
-                            var tweetAmnt = (profile.meta.tweets - 1);
-                            profile.meta.tweets = tweetAmnt;
-                            profile.save();
-                        }
-                        // Remove tweet from Tweets DB
-                        tweet.remove();
-                        res.redirect("/tweets");
-                    }
-                }); 
+                console.log(res.locals.currentUser)
+                tweet.remove();
+                res.redirect("/tweets");
+                // User.findOne({username: res.locals.currentUser}, function(err, profile){
+                //     if(err){
+                //         // console.log(err);
+                //         res.redirect("/tweets");
+                //     } else {
+                //         // Decrement tweets in profile
+                //         if(profile.meta.tweets > 0){
+                //             var tweetAmnt = (profile.meta.tweets - 1);
+                //             profile.meta.tweets = tweetAmnt;
+                //             profile.save();
+                //         }
+                //         // Remove tweet from Tweets DB
+                //         tweet.remove();
+                //         console.log('removed')
+                //         res.redirect("/tweets");
+                //     }
+                // }); 
             }
         }
     });

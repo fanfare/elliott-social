@@ -6,24 +6,42 @@ var UserSchema = new mongoose.Schema({
         firstname: String,
         lastname: String,
         location: String,
-        birthday: String,
-        email: String,
-        image: {type: String, default: "/images/blank-profile.png"},
-        /* bgImage: type: String, 
-        to be used on profile page eventually */
+        website: String,
+        // image: {type: String, default: "/images/blank-profile.png"},
+        image: String,
+        color: {type: String},
+        songs: {
+            song1: String,
+            song2: String,
+            song3: String,
+            song4: String,
+            song5: String,
+        },
+        books: {
+            book1: String,
+            book2: String,
+            book3: String,
+            book4: String,
+            book5: String,
+        },
+        links: {
+            link1: String,
+            link2: String,
+            link3: String,
+            link4: String,
+            link5: String,
+        },
+        friends: [{
+            friend_id: String,
+        }],
         description: String
     },
-    username: String,
+    email: String, 
+    username: String, 
     passport: String,
     joinDate: {type: Date, default: Date.now},
-    meta: {
-        tweets: {type: Number, default: 0},
-        likes: {type: Number, default: 0},
-        followers: {type: Number, default: 0},
-        following: {type: Number, default: 0},
-    }
 });
 
-UserSchema.plugin(passportLocalMongoose);
+var UserEmail = UserSchema.plugin(passportLocalMongoose, { usernameField : 'email' });
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", UserEmail);

@@ -9,49 +9,46 @@ router.use(require("body-parser").urlencoded({ extended: true }));
 
 // SHOW /register - Show new user signup form
 router.get("/register", function(req, res){
-    res.render("user/signup");
+    res.render("user/signup", { page: req.url });
 });
 
 // CREATE /signup - Create new user, Log user in, then redirect
 router.post("/register", function(req, res){
-
     var newUser = new User(
         {
             user: {
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 location: req.body.location,
-                birthday: req.body.birthday,
-                email: req.body.email,
+                color: req.body.color,
                 description: ""
             },
-            username: req.body.username
+            username: req.body.username,
+            email: req.body.email
         });
 
     User.register(newUser, req.body.password, function(err){
         if(err){
-            console.log(err);
-            return res.render("user/signup");
+            console.log('here:', err);
+            return res.render("user/signup", { page: req.url });
         }
         passport.authenticate("local")(req, res, function(){
-            res.redirect("/tweets");
+            req.flash('message', 'welcome home');
+            res.redirect("/");
         });
     });
 });
 
 // LOGIN SHOW PAGE
 router.get("/login", function(req, res){
-    res.render("user/login");
+    // req.flash('error');
+    // console.log(req.flash('error'))
+    res.render("user/login", { page: req.url, messages: {message: req.flash('error')} });
 });
 
 // LOGIN-> POST ROUTE AUTHENTICATION
-router.post("/login", passport.authenticate("local", 
-    {
-        successRedirect: "/tweets",
-        failureRedirect: "/login"
-    }), function(){
-    }
-);
+router.post("/login", passport.authenticate("local", { successRedirect: "/", failureRedirect: "/login", failureFlash: true }), function(){
+});
 
 // LOGOUT ROUTE
 router.get("/logout", function(req, res){
@@ -60,42 +57,83 @@ router.get("/logout", function(req, res){
 });
 
 // /username PROFILE ROUTE
-router.get("/:username", function(req, res) {
-    User.findOne({ username: req.params.username }, function(err, user) {
-        if (err) {
-            console.log(err);
-            res.redirect("/tweets"); // No profile/Error redirect to /tweets page
-        } else {
-            if(user){
-                Tweet.find({user: {id: user._id, username: req.params.username}}, function(err, allTweets){
-                    if(err){
-                        console.log(err);
-                        res.redirect("/tweets");
-                    } else {
-                        // Show profile page & send profile variable for EJS
-                        // Sort tweets by date
-                        var sortByDate = "0";
-                        if(req.query.sortByDate) {
-                            if(req.query.sortByDate == "1"){ 
-                                allTweets = oldestTweetsByDate(allTweets); 
-                                sortByDate = "1"; 
-                            } else {
-                                allTweets = latestTweetsByDate(allTweets);
-                                sortByDate = "0";
-                            }
-                        } else {
-                            allTweets = latestTweetsByDate(allTweets);
-                            sortByDate = "0";
-                        }
-                        res.render("user/profile.ejs", { sortByDate: sortByDate, profile: user, birthday: readableBday(user.user.birthday), tweets: allTweets});
-                    }
-                });
-                
+router.get("/:username", async function(req, res) {
+    try {
+        User.findOne({username: req.params.username}).then(function(userData){
+            // console.log('friends', userData)
+            var friendsArray = userData.user.friends.map(function(friend) {
+                return User.findOne({_id: friend.friend_id }).exec()
+            })
+            Promise.all(friendsArray).then(function(friendsPromise) {
+                // console.log(friendsPromise)
+                // console.log(userData)
+                res.render("user/profile.ejs", { page: req.url, profile: userData, friends: friendsPromise});
+            }).catch(function(err) {
+                console.log(err);
+            });
+        }).catch(function(err) {
+            console.log('user route:', err.message);
+        });
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+
+// Add friend
+router.put("/:username/friend", function(req, res){
+    // res.redirect("/" + req.params.username)
+        User.findOne({username: req.params.username}, function(err, userFound) {
+            if (err) {
+                console.log(err)
             } else {
-                res.redirect("/tweets");
+                var friendID = userFound._id
+                var friendObj = {"friend_id": friendID}
+
+                // Check if more than 4 friends
+                if (res.locals.currentUser.user.friends.length <= 9) {
+                    // Check if friend already exists in friend list
+                    if (res.locals.currentUser.user.friends.some(friend => friend.friend_id == userFound._id)) {
+                        console.log('already added to favorites')
+                        req.flash('message', 'already added to favorites');
+                        return res.redirect("/" + req.params.username)
+                    } else {
+                        console.log('added friend')
+                        User.findOneAndUpdate({ username: res.locals.currentUser.username }, {$push: {'user.friends': friendObj}}, function(err, doc) {
+                            if (err) return res.send(500, {error: err});
+                            req.flash('message', 'added to favorites');
+                            return res.redirect("/" + req.params.username)
+                        })
+                    }
+                } else {
+                    console.log('too many friends')
+                    req.flash('message', 'sorry, you can only add 4 favorites');
+                    return res.redirect("/" + req.params.username)
+                }
+
+                
             }
+        })
+})
+
+// Delete Friend
+router.delete("/:username/remove-friend/:id", isLoggedIn, function(req, res) {
+    User.findOne({username: req.params.username}, function(err, userFound) {
+        if(!err) {
+            console.log(userFound)
+            
+            var friendID = req.params.id
+            var friendObj = {"friend_id": friendID}
+
+            console.log(friendObj)
+
+            User.findOneAndUpdate({ username: req.params.username }, {$pull: {'user.friends': friendObj}}, function(err, doc) {
+                if (err) return res.send(500, {error: err});
+                req.flash('message', 'removed from favorites');
+                return res.redirect("/" + req.params.username)
+            })
+
         }
-    });
+    })
 });
 
 // UPDATE route for user
@@ -105,32 +143,84 @@ router.put("/:username", isLoggedIn, function(req, res){
         User.findOne({username: req.params.username}, function(err, profile){
             if(err){
                 console.log(err);
-                res.redirect("/tweets");
+                res.redirect("/" + req.body.username);
             } else {
-                profile.user.firstname      = req.body.firstname;
-                profile.user.lastname       = req.body.lastname;
-                profile.user.description    = req.body.description;
-                profile.user.location       = req.body.location;
-                profile.user.image          = req.body.image;
-                profile.user.birthday       = req.body.birthday;
+                profile.user.firstname = req.body.firstname;
+                profile.user.lastname = req.body.lastname;
+                profile.user.description = req.body.description;
+                profile.user.location = req.body.location;
+                profile.user.website = req.body.website;
+                profile.user.image = req.body.image;
+                profile.user.birthday = req.body.birthday;
+                profile.user.color = req.body.color;
+                profile.username = req.body.username;
+                profile.user.songs = {
+                    song1: req.body.song1,
+                    song2: req.body.song2,
+                    song3: req.body.song3,
+                    song4: req.body.song4,
+                    song5: req.body.song5
+                };
+                profile.user.books = {
+                    book1: req.body.book1,
+                    book2: req.body.book2,
+                    book3: req.body.book3,
+                    book4: req.body.book4,
+                    book5: req.body.book5
+                };
+                profile.user.links = {
+                    link1: req.body.link1,
+                    link2: req.body.link2,
+                    link3: req.body.link3,
+                    link4: req.body.link4,
+                    link5: req.body.link5
+                };
 
-                profile.save(function(err){
-                    if(err){
-                        // Couldn't save the profile
-                        console.log(err);
-                        res.redirect("/tweets");
-                    } else {
-                        // Profile Updated & Saved successfully
-                        res.redirect("/" + req.params.username);
-                    }
-                });
+                // Check if username changed
+                if (req.params.username != req.body.username) {
+                    // Check if username already exists
+                    User.findOne({username: req.body.username}, function(err, found){
+                        if (found == null) {
+                            profile.save(function(err){
+                                if(err){
+                                    // Couldn't save the profile
+                                    console.log(err);
+                                    req.flash('message', 'Couldn\'t save');
+                                    res.redirect("/" + req.body.username);
+                                } else {
+                                    // Profile Updated & Saved successfully
+                                    req.flash('message', 'Saved');
+                                    res.redirect("/" + req.body.username);
+                                    console.log('elliott', req.body.song1)
+                                }
+                            });
+                        } else {
+                            req.flash('message', 'username taken');
+                            res.redirect("/" + req.params.username);
+                        }
+                    })
+                } else {
+                    profile.save(function(err){
+                        if(err){
+                            // Couldn't save the profile
+                            console.log(err);
+                            req.flash('message', 'Couldn\'t save');
+                            res.redirect("/" + req.body.username);
+                        } else {
+                            // Profile Updated & Saved successfully
+                            req.flash('message', 'Saved');
+                            res.redirect("/" + req.body.username);
+                            console.log('elliott', req.body.song1)
+                        }
+                    });
+                }
             }
         });
     } else {
         // Current Logged in user is not the same as the profile being edited
         // Add better error handling later
         console.log("ERROR: Current logged in user is NOT the same as the profile being edited!");
-        res.redirect("/tweets");
+        res.redirect("/" + req.params.username);
     }
 });
 
@@ -148,12 +238,12 @@ function oldestTweetsByDate(allTweets){
 }
 
 // Translate Birthday date into readable birthday
-function readableBday(birthday){
-    var myDate = new Date(birthday);
+function readableDate(date){
+    var myDate = new Date(date);
     var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
         "October", "November", "December"][myDate.getMonth()];
-    var usersBirthday = month + " " + (myDate.getDate()+1) + ", " + myDate.getFullYear();
-    return usersBirthday;
+    var usersDate = month + " " + (myDate.getDate()+1) + ", " + myDate.getFullYear();
+    return usersDate;
 }
 
 
@@ -162,7 +252,7 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         return next();
     }
-    res.redirect("/login");
+    res.redirect({error: 'Please login to continue.'}, "/login");
 } 
 
 module.exports = router;
