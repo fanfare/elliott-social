@@ -11,7 +11,6 @@ const session = require("express-session")
 const MongoStore = require('connect-mongo')(session)
 const mongoose = require("mongoose")
 const PORT = 3003
-const seedDB = require("./seeds")
 const app = express()
 
 /* connect to database */
