@@ -53,6 +53,7 @@ nav {
 .box {
     display: inline-block;
     background-color: #fff;
+    position: relative;
     /* border-radius: 100%; */
 }
 .small {
@@ -98,7 +99,6 @@ section {
     display: inline-block;
 }
 .leaf {background-image: url('../images/leaf.svg');}
-.hand {background-image: url('../images/hand.svg');}
 .heart {background-image: url('../images/heart.svg');}
 .mushroom {background-image: url('../images/mushroom.svg');}
 .pebble {background-image: url('../images/pebble.svg');}

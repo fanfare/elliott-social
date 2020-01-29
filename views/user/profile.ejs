@@ -61,13 +61,12 @@
                     <div class="form-group">
                         <label class="editShapeLabel" for="shape">Shape</label>
                         <select name="shape">
-                            <option value="" disabled="" selected="<%= profile.user.shape %>" hidden=""><%= profile.user.shape %></option>
-                            <option value="flower">flower</option>
-                            <option value="hand">hand</option>
-                            <option value="heart">heart</option>
-                            <option value="leaf">leaf</option>
-                            <option value="pebble">pebble</option>
-                            <option value="star">star</option>
+                            <option <% if(profile.user.shape == 'flower') { %>selected<% } %> value="flower">flower</option>
+                            <option <% if(profile.user.shape == 'heart') { %>selected<% } %> value="heart">heart</option>
+                            <option <% if(profile.user.shape == 'leaf') { %>selected<% } %> value="leaf">leaf</option>
+                            <option <% if(profile.user.shape == 'mushroom') { %>selected<% } %> value="mushroom">mushroom</option>
+                            <option <% if(profile.user.shape == 'pebble') { %>selected<% } %> value="pebble">pebble</option>
+                            <option <% if(profile.user.shape == 'star') { %>selected<% } %> value="star">star</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -104,9 +103,9 @@
     <% } } else { %>
     <div>
     <% } %>
-        <span class="box large" style="background-color: <%= profile.user.color %> !important;"></span>
+        <span class="box large" style="background-color: <%= profile.user.color %> !important;"></span> <% if(profile.user.shape){ %><span class="shape <%= profile.user.shape %>"></span><% } %>
         <h2>
-            <%= profile.username %> <% if(profile.user.shape){ %><span class="shape <%= profile.user.shape %>"></span><% } %>
+            <%= profile.username %>
         </h2>
 
         <p>
