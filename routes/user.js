@@ -110,7 +110,7 @@ router.put("/:username/friend", function(req, res){
                 var friendObj = {"friend_id": friendID}
 
                 // Check if more than 4 friends
-                if (res.locals.currentUser.user.friends.length <= 9) {
+                if (res.locals.currentUser.user.friends.length <= 8) {
                     // Check if friend already exists in friend list
                     if (res.locals.currentUser.user.friends.some(friend => friend.friend_id == userFound._id)) {
                         console.log('already added to favorites')
