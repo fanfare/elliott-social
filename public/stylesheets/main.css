@@ -196,10 +196,11 @@ label {
     text-align: center;
 }
 
-.new {
+.new-block {
     display: inline-block;
     width: auto;
     height: auto;
     padding: 7px;
+    margin-bottom: 5px;
     text-decoration: none;
 }
