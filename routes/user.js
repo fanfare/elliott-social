@@ -126,7 +126,7 @@ router.put("/:username/friend", function(req, res){
                     }
                 } else {
                     console.log('too many friends')
-                    req.flash('message', 'sorry, you can only add 4 favorites');
+                    req.flash('message', 'you can only add 8 favorites');
                     return res.redirect("/" + req.params.username)
                 }
 
