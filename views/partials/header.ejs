@@ -11,19 +11,8 @@
 
 <body>
     <nav>
-        <!-- Search bar -->
-        <!-- <div class="navbar-form navbar-right">
-            <form action="/tweets" method="GET" class="searchBar">
-                <div class="input-group form-group">
-                    <input type="text" class="form-control" name="search" placeholder="Search">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </span>
-                </div>
-            </form> -->
-
         <% if(!currentUser){ %>
-            <a href="/" class="box small"></a>
+            <a href="/" title="home" class="box small"></a>
             <div>
             <% if (messages.message) { %>
                 <div class="message"><%= messages.message %></div>
@@ -32,9 +21,9 @@
             <div><a href="/login">Login</a> / <a href="/register">Sign Up</a></div>
         <% } else { %>
             <% if(page === '/'){ %>
-                <a href="<%= currentUser.username %>" class="box small" style="background: <%= currentUser.user.color %>  !important;"></a>
+                <a href="<%= currentUser.username %>" title="profile" class="box small" style="background: <%= currentUser.user.color %>  !important;"></a>
             <% } else { %>
-                <a href="/" class="box small"></a>
+                <a href="/" title="home" class="box small"></a>
             <% } %>
             <div>
             <% if (messages.message) { %>
