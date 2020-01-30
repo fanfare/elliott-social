@@ -22,7 +22,7 @@ h1, h2, h3, h4, p, form, figure, button, ul, ol, li {
     padding: 0;
 }
 ol, ul {
-    margin-left: 15px;
+    padding-left: 1em;
 }
 h2, h3, h4 {
     margin-bottom: .5em;
