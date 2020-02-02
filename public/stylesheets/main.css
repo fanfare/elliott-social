@@ -206,14 +206,14 @@ label {
 
 /* filtering */
 
-/* #filters {
-    margin-top: 2em;
-} */
+#filters {
+    margin-bottom: 5px;
+}
 
 .filter {
-    width: 30px;
-    height: 30px;
-    border: 1px solid #c5c5c5;
+    width: 25px;
+    height: 25px;
+    border: 1px solid transparent;
     background-color: #fff;
     background-size: 70% 70%;
     background-repeat: no-repeat;

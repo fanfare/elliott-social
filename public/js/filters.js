@@ -3,7 +3,7 @@ const people = document.querySelectorAll('.person');
 
 function filterShape(clickedElement) {
     filterButtons.forEach((filter) => {
-        filter.style.cssText = "border: 1px solid #c5c5c5;"
+        filter.style.cssText = "border: 1px solid transparent"
     })
     clickedElement.style.cssText = "border: 1px solid #000;"
     var shape = clickedElement.className.replace('filter ', '').toString();
