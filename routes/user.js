@@ -3,7 +3,6 @@
 const router = require("express").Router();
 const passport = require("passport");
 const User = require("../models/user.js");
-const Tweet = require("../models/tweet.js");
 const {check, validationResult} = require('express-validator');
 
 router.use(require("body-parser").urlencoded({ extended: true }));
@@ -242,19 +241,6 @@ router.put("/:username", isLoggedIn, function(req, res){
         res.redirect("/" + req.params.username);
     }
 });
-
-
-// Sort tweets array by date (Latest First)
-function latestTweetsByDate(allTweets){
-    allTweets.sort(function(a, b) { return (a.date < b.date) ? 1 : ((a.date > b.date) ? -1 : 0); });
-    return allTweets;
-}
-
-// Sort tweets array by date (Oldest First)
-function oldestTweetsByDate(allTweets){
-    allTweets.sort(function(a, b){ return (a.date < b.date) ? -1 : ((a.date > b.date) ? 1 : 0); });
-    return allTweets;
-}
 
 // Translate Birthday date into readable birthday
 function readableDate(date){

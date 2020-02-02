@@ -1,73 +1,19 @@
 <% include partials/header %>
-    <div class="container">
-        <% if(currentUser){ %>
-            <header class="jumbotron twitter">
-                <h2 class="text-center">Create a New Tweet</h2>
-                <div class="createATweet">
-                    <form action="/tweets" method="POST">
-                        <div class="form-group">
 
-                            <textarea id="tweetBox" class="form-control" type="text" maxlength="200" onkeyup="limitTextCount('tweetBox', 'tweetCount', 200);" onkeydown="limitTextCount('tweetBox', 'tweetCount', 200);" name="tweet" placeholder="Tweet"></textarea>
-                            <br>
+<main>
+    <% if(currentUser){ %>
+        <h2>Fish</h2>
+        <% friends.forEach(function(friend) { %>
+            <a href="<%= friend.username %>" title="<%= friend.username %> (<%= friend.user.location %>)" class="box small" style="background-color: <%= friend.user.color %> !important;"></a>
+        <% }) %>
+        <br /><br />
+    <% } %>
+    
+    <h2>Ocean</h2>
+    
+    <% users.forEach(function(user){ %>
+        <a href="<%= user.username %>" title="<%= user.username %> (<%= user.user.location %>)" class="box small" style="background-color: <%= user.user.color %> !important;"></a>
+    <% }) %>
+</main>
 
-                        </div>
-                        <p id="tweetCount">200 character(s) to go..</p>
-                        <div class="form-group">
-                            <button class="btn btn-lg btn-default"><i class="fa fa-twitter" aria-hidden="true" style="padding-right: 10px;"></i>Tweet!</button>
-                        </div>
-                    </form>
-                </div>
-            </header>
-            <% } %>
-
-                <div class="row" id="feed">
-                    <% tweets.forEach(function(tweet){ %>
-                        <div class="row">
-                            <!-- Tweet Image -->
-                            <div class="col-sm-1">
-
-                                <% if(currentUser) { %>
-                                    <% if(currentUser.username == tweet.user.username){ %>
-                                        <!-- <img class="thumbnail" src="<%= currentUser.user.image %>"> -->
-                                        <% } else { %>
-                                            <!-- <img class="thumbnail" src="<%= tweet.image %>"> -->
-                                            <% } %>
-                                                <% } %>
-
-
-                            </div>
-                            <!-- /.col-sm-1 -->
-
-                            <!-- Tweet -->
-                            <div class="col-sm-11 col-tweet">
-                                <p>
-                                    <strong><a href="<%= tweet.user.username %>"><%= tweet.user.username %></a></strong> |
-                                    <%= tweet.date.toString().substring(4, 15) %>
-                                </p>
-
-                                <p>
-                                    <%= tweet.tweet %>
-                                </p>
-
-                                <p>
-                                    <!-- If there is a user logged in & profile viewing is the same as user -->
-                                    <% if(currentUser){ %>
-                                        <% if(currentUser.username == tweet.user.username){ %>
-                                            <form action='/tweets/<%= tweet._id %>?_method=DELETE' class="delete-form" method='POST'>
-                                                <button class='btn btn-danger btn-xs'>Delete</button>
-                                            </form>
-                                        <% } %>
-                                    <% } %>
-                                </p>
-                                <hr>
-                            </div>
-                            <!-- /.col-sm-11 -->
-                        </div>
-                        <!-- /.row -->
-                        <% }); %>
-                </div>
-
-    </div>
-
-
-    <%include partials/footer %>
+<% include partials/footer %>
