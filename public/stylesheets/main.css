@@ -94,7 +94,7 @@ section {
     width: 30px;
     height: 30px;
     background-size: 100% 100%;
-    background-repeat: none;
+    background-repeat: no-repeat;
     background-position: center;
     display: inline-block;
 }
@@ -202,4 +202,22 @@ label {
     padding: 7px;
     margin-bottom: 5px;
     text-decoration: none;
+}
+
+/* filtering */
+
+/* #filters {
+    margin-top: 2em;
+} */
+
+.filter {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #c5c5c5;
+    background-color: #fff;
+    background-size: 70% 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+    cursor: pointer;
 }

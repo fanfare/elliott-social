@@ -10,10 +10,22 @@
     <% } %>
     
     <h2>Explore</h2>
-    
-    <% users.forEach(function(user){ %>
-        <a href="<%= user.username %>" title="<%= user.username %> (<%= user.user.location %>)" class="box small new-block" style="background-color: <%= user.user.color %> !important;"><%= user.username %></a>
-    <% }) %>
+
+    <div id="filters">
+        <div class="filter flower"></div>
+        <div class="filter heart"></div>
+        <div class="filter leaf"></div>
+        <div class="filter mushroom"></div>
+        <div class="filter pebble"></div>
+        <div class="filter star"></div>
+    </div>
+
+    <div id="everyone">
+        <% users.forEach(function(user){ %>
+            <a href="<%= user.username %>" title="<%= user.username %> (<%= user.user.location %>)" class="box small new-block person shape-<%= user.user.shape %>" style="background-color: <%= user.user.color %> !important;"><%= user.username %></a>
+        <% }) %>
+    </div>
 </main>
 
+<script src="js/filters.js"></script>
 <% include partials/footer %>
