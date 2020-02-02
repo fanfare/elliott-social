@@ -195,3 +195,12 @@ label {
     padding: 10px;
     text-align: center;
 }
+
+.new-block {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    padding: 7px;
+    margin-bottom: 5px;
+    text-decoration: none;
+}
