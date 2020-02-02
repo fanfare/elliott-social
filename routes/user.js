@@ -158,10 +158,10 @@ router.delete("/:username/remove-friend/:id", isLoggedIn, function(req, res) {
 // UPDATE route for user
 router.put("/:username", isLoggedIn, [
     check('username').not().isEmpty().isLength({ min: 3, max: 200 }).escape().custom(value => !/\s/.test(value)).withMessage('No spaces are allowed in the username'),
-    check('location').isLength({ max: 100 }).escape(),
-    check('website').isLength({ max: 100 }).escape(),
-    check('color').not().isEmpty().isLength({ max: 100 }).escape(),
-    check('shape').isLength({ max: 100 }).escape(),
+    check('location').isLength({ max: 100 }),
+    check('website').isLength({ max: 100 }),
+    check('color').not().isEmpty().isLength({ max: 100 }),
+    check('shape').isLength({ max: 100 }),
     check('description').isLength({ max: 10000 })
 ], function(req, res){
     const errors = validationResult(req);
