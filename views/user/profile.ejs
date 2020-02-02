@@ -80,7 +80,7 @@
                         <input class="form-control" name="color" value="<%= (profile.user.color == null) ? '#32a852' : profile.user.color  %>" type="color" placeholder="#32a852" required>
                     </div>
                     <div class="form-group">
-                        <label class="editShapeLabel" for="shape">Shape</label>
+                        <label class="editShapeLabel" for="shape">Community</label>
                         <select name="shape">
                             <option <% if(profile.user.shape == '') { %>selected<% } %> value=""></option>
                             <option <% if(profile.user.shape == 'flower') { %>selected<% } %> value="flower">flower</option>
@@ -99,7 +99,7 @@
 
         <div id="favorites-tab-content">
             <section>
-                <h3>Favorites</h3>
+                <!-- <h3>Favorites</h3> -->
         
                 <% if(friends.length > 0) { %>
                 <ol>
