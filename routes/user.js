@@ -15,10 +15,10 @@ router.get("/register", function(req, res){
 // CREATE /signup - Create new user, Log user in, then redirect
 router.post("/register", [
     check('email').not().isEmpty().isLength({ max: 1000 }).escape(),
-    check('username').not().isEmpty().isLength({ min: 3, max: 1000 }).escape().custom(value => !/\s/.test(value)).withMessage('No spaces are allowed in the username'),
+    check('username').not().isEmpty().isLength({ min: 3, max: 200 }).escape().custom(value => !/\s/.test(value)).withMessage('No spaces are allowed in the username'),
     check('password').not().isEmpty().isLength({ min: 5, max: 40 }).escape().withMessage('Password must be at least 5 characters'),
-    check('location').not().isEmpty().isLength({ max: 1000 }).escape(),
-    check('color').not().isEmpty().isLength({ max: 1000 }).escape()
+    check('location').not().isEmpty().isLength({ max: 100 }).escape(),
+    check('color').not().isEmpty().isLength({ max: 100 }).escape()
 ], function(req, res){
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -156,89 +156,131 @@ router.delete("/:username/remove-friend/:id", isLoggedIn, function(req, res) {
 });
 
 // UPDATE route for user
-router.put("/:username", isLoggedIn, function(req, res){
-    if(res.locals.currentUser.username == req.params.username){
-        // Current Logged In user is the same as the profile being edited
-        User.findOne({username: req.params.username}, function(err, profile){
-            if(err){
-                console.log(err);
-                res.redirect("/" + req.body.username);
-            } else {
-                profile.user.firstname = req.body.firstname;
-                profile.user.lastname = req.body.lastname;
-                profile.user.description = req.body.description;
-                profile.user.location = req.body.location;
-                profile.user.website = req.body.website;
-                profile.user.shape = req.body.shape;
-                profile.user.color = req.body.color;
-                profile.username = req.body.username;
-                profile.user.songs = {
-                    song1: req.body.song1,
-                    song2: req.body.song2,
-                    song3: req.body.song3,
-                    song4: req.body.song4,
-                    song5: req.body.song5
-                };
-                profile.user.books = {
-                    book1: req.body.book1,
-                    book2: req.body.book2,
-                    book3: req.body.book3,
-                    book4: req.body.book4,
-                    book5: req.body.book5
-                };
-                profile.user.links = {
-                    link1: req.body.link1,
-                    link2: req.body.link2,
-                    link3: req.body.link3,
-                    link4: req.body.link4,
-                    link5: req.body.link5
-                };
-
-                // Check if username changed
-                if (req.params.username != req.body.username) {
-                    // Check if username already exists
-                    User.findOne({username: req.body.username}, function(err, found){
-                        if (found == null) {
-                            profile.save(function(err){
-                                if(err){
-                                    // Couldn't save the profile
-                                    console.log(err);
-                                    req.flash('message', 'Couldn\'t save');
-                                    res.redirect("/" + req.body.username);
-                                } else {
-                                    // Profile Updated & Saved successfully
-                                    req.flash('message', 'Saved');
-                                    res.redirect("/" + req.body.username);
-                                    console.log('elliott', req.body.song1)
-                                }
-                            });
-                        } else {
-                            req.flash('message', 'username taken');
-                            res.redirect("/" + req.params.username);
-                        }
-                    })
-                } else {
-                    profile.save(function(err){
-                        if(err){
-                            // Couldn't save the profile
-                            console.log(err);
-                            req.flash('message', 'Couldn\'t save');
-                            res.redirect("/" + req.body.username);
-                        } else {
-                            // Profile Updated & Saved successfully
-                            req.flash('message', 'Saved');
-                            res.redirect("/" + req.body.username);
-                            console.log('elliott', req.body.song1)
-                        }
-                    });
-                }
-            }
-        });
-    } else {
-        // Current Logged in user is not the same as the profile being edited
-        // Add better error handling later
-        console.log("ERROR: Current logged in user is NOT the same as the profile being edited!");
+router.put("/:username", isLoggedIn, [
+    check('username').not().isEmpty().isLength({ min: 3, max: 200 }).escape().custom(value => !/\s/.test(value)).withMessage('No spaces are allowed in the username'),
+    check('location').isLength({ max: 100 }).escape(),
+    check('website').isLength({ max: 100 }).escape(),
+    check('color').not().isEmpty().isLength({ max: 100 }).escape(),
+    check('shape').isLength({ max: 100 }).escape(),
+    check('description').isLength({ max: 10000 })
+], function(req, res){
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        console.log(errors.array());
         res.redirect("/" + req.params.username);
+    } else {
+        if(res.locals.currentUser.username == req.params.username){
+            // Current Logged In user is the same as the profile being edited
+            User.findOne({username: req.params.username}, function(err, profile){
+                if(err){
+                    console.log(err);
+                    res.redirect("/" + req.body.username);
+                } else {
+                    profile.username = req.body.username.toLowerCase();
+                    profile.user.description = req.body.description;
+                    profile.user.location = req.body.location;
+                    profile.user.website = req.body.website;
+                    profile.user.shape = req.body.shape;
+                    profile.user.color = req.body.color;
+                    profile.user.songs = {
+                        song1: req.body.song1,
+                        song2: req.body.song2,
+                        song3: req.body.song3,
+                        song4: req.body.song4,
+                        song5: req.body.song5,
+                        song6: req.body.song6,
+                        song7: req.body.song7,
+                        song8: req.body.song8
+                    };
+                    profile.user.books = {
+                        book1: req.body.book1,
+                        book2: req.body.book2,
+                        book3: req.body.book3,
+                        book4: req.body.book4,
+                        book5: req.body.book5,
+                        book6: req.body.book6,
+                        book7: req.body.book7,
+                        book8: req.body.book8
+                    };
+                    profile.user.films = {
+                        film1: req.body.film1,
+                        film2: req.body.film2,
+                        film3: req.body.film3,
+                        film4: req.body.film4,
+                        film5: req.body.film5,
+                        film6: req.body.film6,
+                        film7: req.body.film7,
+                        film8: req.body.film8
+                    };
+                    profile.user.links = {
+                        link1: req.body.link1,
+                        link2: req.body.link2,
+                        link3: req.body.link3,
+                        link4: req.body.link4,
+                        link5: req.body.link5,
+                        link6: req.body.link6,
+                        link7: req.body.link7,
+                        link8: req.body.link8
+                    };
+                    profile.user.custom = {
+                        custom_title: req.body.custom_title,
+                        custom1: req.body.custom1,
+                        custom2: req.body.custom2,
+                        custom3: req.body.custom3,
+                        custom4: req.body.custom4,
+                        custom5: req.body.custom5,
+                        custom6: req.body.custom6,
+                        custom7: req.body.custom7,
+                        custom8: req.body.custom8
+                    };
+
+
+                    // Check if username changed
+                    if (req.params.username != req.body.username.toLowerCase()) {
+                        // Check if username already exists
+                        User.findOne({username: req.body.username.toLowerCase()}, function(err, found){
+                            if (found == null) {
+                                profile.save(function(err){
+                                    if(err){
+                                        // Couldn't save the profile
+                                        console.log(err);
+                                        req.flash('message', 'Couldn\'t save');
+                                        res.redirect("/" + req.body.username.toLowerCase());
+                                    } else {
+                                        // Profile Updated & Saved successfully
+                                        req.flash('message', 'Saved');
+                                        res.redirect("/" + req.body.username.toLowerCase());
+                                        console.log('elliott', req.body.song1)
+                                    }
+                                });
+                            } else {
+                                req.flash('message', 'username taken');
+                                res.redirect("/" + req.params.username);
+                            }
+                        })
+                    } else {
+                        profile.save(function(err){
+                            if(err){
+                                // Couldn't save the profile
+                                console.log(err);
+                                req.flash('message', 'Couldn\'t save');
+                                res.redirect("/" + req.body.username.toLowerCase());
+                            } else {
+                                // Profile Updated & Saved successfully
+                                req.flash('message', 'Saved');
+                                res.redirect("/" + req.body.username.toLowerCase());
+                                console.log('elliott', req.body.song1)
+                            }
+                        });
+                    }
+                }
+            });
+        } else {
+            // Current Logged in user is not the same as the profile being edited
+            // Add better error handling later
+            console.log("ERROR: Current logged in user is NOT the same as the profile being edited!");
+            res.redirect("/" + req.params.username);
+        }
     }
 });
 
