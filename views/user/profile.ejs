@@ -15,11 +15,11 @@
             <section>
                 <form action="/<%= profile.username %>?_method=PUT" method="POST">
                     <div class="form-group">
-                        <label class="editProfileLabel" for="description">Text</label><br />
+                        <label class="editProfileLabel" for="text">Text</label><br />
                         <textarea class="form-control" name="description"><%= profile.user.description %></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="editProfileLabel" for="description">Music</label><br />
+                        <label class="editProfileLabel" for="songs">Music</label><br />
                         <input class="form-control" name="song1" value="<%= profile.user.songs.song1 %>" type="url" placeholder="url"><br />
                         <input class="form-control" name="song2" value="<%= profile.user.songs.song2 %>" type="url" placeholder="url"><br />
                         <input class="form-control" name="song3" value="<%= profile.user.songs.song3 %>" type="url" placeholder="url"><br />
@@ -28,7 +28,7 @@
                         <input class="form-control" name="song6" value="<%= profile.user.songs.song6 %>" type="url" placeholder="url"><br />
                     </div>
                     <div class="form-group">
-                        <label class="editProfileLabel" for="description">Books</label><br />
+                        <label class="editProfileLabel" for="books">Books</label><br />
                         <input class="form-control" name="book1" value="<%= profile.user.books.book1 %>" type="text" placeholder="title, author"><br />
                         <input class="form-control" name="book2" value="<%= profile.user.books.book2 %>" type="text" placeholder="title, author"><br />
                         <input class="form-control" name="book3" value="<%= profile.user.books.book3 %>" type="text" placeholder="title, author"><br />
@@ -37,7 +37,7 @@
                         <input class="form-control" name="book6" value="<%= profile.user.books.book6 %>" type="text" placeholder="title, author"><br />
                     </div>
                     <div class="form-group">
-                        <label class="editProfileLabel" for="description">Films</label><br />
+                        <label class="editProfileLabel" for="films">Films</label><br />
                         <input class="form-control" name="film1" value="<%= profile.user.films.film1 %>" type="text" placeholder="title, director"><br />
                         <input class="form-control" name="film2" value="<%= profile.user.films.film2 %>" type="text" placeholder="title, director"><br />
                         <input class="form-control" name="film3" value="<%= profile.user.films.film3 %>" type="text" placeholder="title, director"><br />
@@ -46,7 +46,7 @@
                         <input class="form-control" name="film6" value="<%= profile.user.films.film6 %>" type="text" placeholder="title, director"><br />
                     </div>
                     <div class="form-group">
-                        <label class="editProfileLabel" for="description">Links</label><br />
+                        <label class="editProfileLabel" for="links">Links</label><br />
                         <input class="form-control" name="link1" value="<%= profile.user.links.link1 %>" type="url" placeholder="url"><br />
                         <input class="form-control" name="link2" value="<%= profile.user.links.link2 %>" type="url" placeholder="url"><br />
                         <input class="form-control" name="link3" value="<%= profile.user.links.link3 %>" type="url" placeholder="url"><br />
@@ -55,6 +55,7 @@
                         <input class="form-control" name="link6" value="<%= profile.user.links.link6 %>" type="url" placeholder="url"><br />
                     </div>
                     <div class="form-group">
+                        <label class="editProfileLabel" for="custom">List</label><br />
                         <input class="form-control" name="custom_title" value="<%= profile.user.custom.custom_title %>" type="text" placeholder="Custom Title"><br /><br />
                         <input class="form-control" name="custom1" value="<%= profile.user.custom.custom1 %>" type="text" placeholder="text"><br />
                         <input class="form-control" name="custom2" value="<%= profile.user.custom.custom2 %>" type="text" placeholder="text"><br />
