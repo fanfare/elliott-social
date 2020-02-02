@@ -108,7 +108,7 @@
                             <li>
                             <a href="<%= friend.username %>" class="box small" style="background-color: <%= friend.user.color %> !important;"></a> <%= friend.username %>
                             <form class="remove-friend" action='<%= currentUser.username %>/remove-friend/<%= friend._id %>?_method=DELETE' method='POST'>
-                                <button class="tiny-button">release</button>
+                                <button class="tiny-button">remove</button>
                             </form>
                             </li>
                         <% } %>
@@ -137,7 +137,7 @@
         <% if(currentUser){ if(currentUser.username != profile.username){ %>
             <p>
                 <form class="add-friend" action="/<%= profile.username %>/friend?_method=PUT" method="POST">
-                    <button class="tiny-button">+</button>
+                    <button class="tiny-button">bookmark</button>
                 </form>
             </p>
         <% }} %>

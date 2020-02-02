@@ -132,7 +132,6 @@ textarea {
 /* Flash Messages */
 .message {
     /* font-style: italic; */
-    background: yellow;
     display: inline-block;
     padding: 4px;
     height: 25px;
