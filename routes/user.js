@@ -15,10 +15,10 @@ router.get("/register", function(req, res){
 // CREATE /signup - Create new user, Log user in, then redirect
 router.post("/register", [
     check('email').not().isEmpty().isLength({ max: 1000 }).escape(),
-    check('username').not().isEmpty().isLength({ min: 3, max: 200 }).escape().custom(value => !/\s/.test(value)).withMessage('No spaces are allowed in the username'),
+    check('username').not().isEmpty().isLength({ min: 3, max: 15 }).escape().custom(value => !/\s/.test(value)).withMessage('No spaces are allowed in the username'),
     check('password').not().isEmpty().isLength({ min: 5, max: 40 }).escape().withMessage('Password must be at least 5 characters'),
-    check('location').not().isEmpty().isLength({ max: 100 }).escape(),
-    check('color').not().isEmpty().isLength({ max: 100 }).escape()
+    check('location').not().isEmpty().isLength({ max: 100 }),
+    check('color').not().isEmpty().isLength({ max: 100 })
 ], function(req, res){
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -157,7 +157,7 @@ router.delete("/:username/remove-friend/:id", isLoggedIn, function(req, res) {
 
 // UPDATE route for user
 router.put("/:username", isLoggedIn, [
-    check('username').not().isEmpty().isLength({ min: 3, max: 200 }).escape().custom(value => !/\s/.test(value)).withMessage('No spaces are allowed in the username'),
+    check('username').not().isEmpty().isLength({ min: 3, max: 15 }).escape().custom(value => !/\s/.test(value)).withMessage('No spaces are allowed in the username'),
     check('location').isLength({ max: 100 }),
     check('website').isLength({ max: 100 }),
     check('color').not().isEmpty().isLength({ max: 100 }),
