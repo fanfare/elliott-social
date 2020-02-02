@@ -8,11 +8,7 @@
         <div id="tabs">
             <a id="preview-tab" class="current-tab">Profile</a>
             <a id="edit-tab">Edit</a>
-<<<<<<< HEAD
-            <a id="favorites-tab">Fish</a>
-=======
             <a id="favorites-tab">Bookmarks</a>
->>>>>>> 6415ff05377f0129139ba4f8315763a53c4d74f6
         </div>
 
         <div id="edit-tab-content">
@@ -120,11 +116,7 @@
         <% if(currentUser){ if(currentUser.username != profile.username){ %>
             <p>
                 <form class="add-friend" action="/<%= profile.username %>/friend?_method=PUT" method="POST">
-<<<<<<< HEAD
-                    <button class="tiny-button">catch</button>
-=======
                     <button class="tiny-button">+</button>
->>>>>>> 6415ff05377f0129139ba4f8315763a53c4d74f6
                 </form>
             </p>
         <% }} %>
