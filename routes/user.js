@@ -113,19 +113,19 @@ router.put("/:username/friend", function(req, res){
                     // Check if friend already exists in friend list
                     if (res.locals.currentUser.user.friends.some(friend => friend.friend_id == userFound._id)) {
                         console.log('already added to favorites')
-                        req.flash('message', 'already added to bookmarks');
+                        req.flash('message', 'already added to favorites');
                         return res.redirect("/" + req.params.username)
                     } else {
                         console.log('added friend')
                         User.findOneAndUpdate({ username: res.locals.currentUser.username }, {$push: {'user.friends': friendObj}}, function(err, doc) {
                             if (err) return res.send(500, {error: err});
-                            req.flash('message', 'added to bookmarks');
+                            req.flash('message', 'added to favorites');
                             return res.redirect("/" + req.params.username)
                         })
                     }
                 } else {
                     console.log('too many friends')
-                    req.flash('message', 'you can only add 9 bookmarks');
+                    req.flash('message', 'you can only add 9 favorites');
                     return res.redirect("/" + req.params.username)
                 }
 
