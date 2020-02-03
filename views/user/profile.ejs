@@ -36,7 +36,7 @@
                         <input class="form-control" name="book6" value="<%= profile.user.books.book6 %>" type="text" placeholder="title, author"><br />
                     </div>
                     <div class="form-group">
-                        <input class="form-label" name="films_title" value="<%= profile.user.films.films_title %>" type="text" placeholder="Films"><br /><br />
+                        <input class="form-label" name="films_title" value="<%= profile.user.films.films_title %>" type="text" placeholder="Movies"><br /><br />
                         <input class="form-control" name="film1" value="<%= profile.user.films.film1 %>" type="text" placeholder="title, director"><br />
                         <input class="form-control" name="film2" value="<%= profile.user.films.film2 %>" type="text" placeholder="title, director"><br />
                         <input class="form-control" name="film3" value="<%= profile.user.films.film3 %>" type="text" placeholder="title, director"><br />
@@ -180,7 +180,7 @@
 
         <% if(profile.user.films.film1) { %>
             <section>
-                <h3><% if(!profile.user.films.films_title) { %>Films<% } else { %><%= profile.user.films.films_title %><% } %></h3>
+                <h3><% if(!profile.user.films.films_title) { %>Movies<% } else { %><%= profile.user.films.films_title %><% } %></h3>
                 <ul>
                     <% if(profile.user.films.film1) { %><li><%= profile.user.films.film1 %></li><% } %>
                     <% if(profile.user.films.film2) { %><li><%= profile.user.films.film2 %></li><% } %>
