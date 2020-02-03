@@ -148,7 +148,7 @@
     
         <% if(profile.user.songs.song1) { %>
             <section>
-                <h3><% if(profile.user.songs.songs_title == '') { %>Music<% } else { %><%= profile.user.songs.songs_title %><% } %></h3>
+                <h3><% if(profile.user.songs.songs_title == '' || profile.user.songs.songs_title == null) { %>Music<% } else { %><%= profile.user.songs.songs_title %><% } %></h3>
                 <ul>
                     <% if(profile.user.songs.song1) { %><li><a href="<%= profile.user.songs.song1 %>"><%= profile.user.songs.song1 %></a></li><% } %>
                     <% if(profile.user.songs.song2) { %><li><a href="<%= profile.user.songs.song2 %>"><%= profile.user.songs.song2 %></a></li><% } %>
