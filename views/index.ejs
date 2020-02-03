@@ -2,7 +2,7 @@
 
 <main>
     <% if(currentUser){ %>
-        <h2>Bookmarks</h2>
+        <h2>Favorites <span id="fav-amount">(<%= 9 - friends.length %> left)</span></h2>
         <% friends.forEach(function(friend) { %>
             <a href="<%= friend.username %>" title="<%= friend.username %> (<%= friend.user.location %>)" class="box small new-block" style="background-color: <%= friend.user.color %> !important;"><%= friend.username %></a>
         <% }) %>

@@ -183,6 +183,7 @@ router.put("/:username", isLoggedIn, [
                     profile.user.shape = req.body.shape;
                     profile.user.color = req.body.color;
                     profile.user.songs = {
+                        songs_title: req.body.songs_title,
                         song1: req.body.song1,
                         song2: req.body.song2,
                         song3: req.body.song3,
@@ -193,6 +194,7 @@ router.put("/:username", isLoggedIn, [
                         song8: req.body.song8
                     };
                     profile.user.books = {
+                        books_title: req.body.books_title,
                         book1: req.body.book1,
                         book2: req.body.book2,
                         book3: req.body.book3,
@@ -203,6 +205,7 @@ router.put("/:username", isLoggedIn, [
                         book8: req.body.book8
                     };
                     profile.user.films = {
+                        films_title: req.body.films_title,
                         film1: req.body.film1,
                         film2: req.body.film2,
                         film3: req.body.film3,
@@ -213,6 +216,7 @@ router.put("/:username", isLoggedIn, [
                         film8: req.body.film8
                     };
                     profile.user.links = {
+                        links_title: req.body.links_title,
                         link1: req.body.link1,
                         link2: req.body.link2,
                         link3: req.body.link3,

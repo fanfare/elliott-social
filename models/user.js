@@ -13,6 +13,7 @@ var UserSchema = new mongoose.Schema({
         shape: String,
         color: {type: String},
         songs: {
+            songs_title: String,
             song1: String,
             song2: String,
             song3: String,
@@ -23,6 +24,7 @@ var UserSchema = new mongoose.Schema({
             song8: String,
         },
         books: {
+            books_title: String,
             book1: String,
             book2: String,
             book3: String,
@@ -33,6 +35,7 @@ var UserSchema = new mongoose.Schema({
             book8: String,
         },
         films: {
+            films_title: String,
             film1: String,
             film2: String,
             film3: String,
@@ -43,6 +46,7 @@ var UserSchema = new mongoose.Schema({
             film8: String,
         },
         links: {
+            links_title: String,
             link1: String,
             link2: String,
             link3: String,
