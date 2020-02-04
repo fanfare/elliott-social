@@ -20,8 +20,6 @@ var UserSchema = new mongoose.Schema({
             song4: String,
             song5: String,
             song6: String,
-            song7: String,
-            song8: String,
         },
         books: {
             books_title: String,
@@ -31,8 +29,6 @@ var UserSchema = new mongoose.Schema({
             book4: String,
             book5: String,
             book6: String,
-            book7: String,
-            book8: String,
         },
         films: {
             films_title: String,
@@ -42,8 +38,6 @@ var UserSchema = new mongoose.Schema({
             film4: String,
             film5: String,
             film6: String,
-            film7: String,
-            film8: String,
         },
         links: {
             links_title: String,
@@ -53,8 +47,6 @@ var UserSchema = new mongoose.Schema({
             link4: String,
             link5: String,
             link6: String,
-            link7: String,
-            link8: String,
         },
         custom: {
             custom_title: String,
@@ -64,8 +56,6 @@ var UserSchema = new mongoose.Schema({
             custom4: String,
             custom5: String,
             custom6: String,
-            custom7: String,
-            custom8: String,
         },
         friends: [{
             friend_id: String,
