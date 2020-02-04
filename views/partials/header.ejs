@@ -11,7 +11,7 @@
     <!-- twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<% if(!locals.profile){ %>Special Fish<% } else { %><%= profile.username %><% } %>">
-    <meta name="twitter:description" content="A beautiful school of fish.">
+    <meta name="twitter:description" content="<% if(!locals.profile){ %>a beautiful school of fish<% } else { %><%= profile.user.description %><% } %>">
     <meta name="twitter:image" content="http://special.fish/images/social-browser.jpg"/>
 </head>
 
