@@ -22,7 +22,9 @@
 
     <div id="everyone">
         <% users.forEach(function(user){ %>
-            <a href="<%= user.username %>" title="<%= user.username %> (<%= user.user.location %>)" class="box small new-block person shape-<%= user.user.shape %>" style="background-color: <%= user.user.color %> !important;"><%= user.username %></a>
+            <% if(user.user.description) { %>
+                <a href="<%= user.username %>" title="<%= user.username %> (<%= user.user.location %>)" class="box small new-block person shape-<%= user.user.shape %>" style="background-color: <%= user.user.color %> !important;"><%= user.username %></a>
+            <% } %>
         <% }) %>
     </div>
 </main>
