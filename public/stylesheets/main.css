@@ -83,6 +83,7 @@ section {
     background: transparent; */
     font-family: Courier,  'Courier New', monospace;
     font-size: 14px;
+    line-height: 20px;
 }
 /* Tabs */
 #tabs {
