@@ -71,7 +71,7 @@ nav {
 }
 section {
     margin-bottom: 1em;
-    /* border: 1px solid #c5c5c5; */
+    border: 1px solid #c5c5c5;
     background: #fff;
     padding: 10px;
 }
