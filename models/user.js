@@ -12,6 +12,7 @@ var UserSchema = new mongoose.Schema({
         image: String,
         shape: String,
         color: {type: String},
+        lastUpdated: String,
         songs: {
             songs_title: String,
             song1: String,

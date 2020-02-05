@@ -8,6 +8,16 @@
         <% }) %>
         <br /><br />
     <% } %>
+
+    <h2>Updated Today</h2>
+
+    <div id="updated-today">
+        <% users.forEach(function(user){ %>
+            <% if (new Date(user.user.lastUpdated).getDate() === new Date().getDate()) { %>
+                <a href="<%= user.username %>" title="<%= user.username %> (<%= user.user.location %>)" class="box small new-block person shape-<%= user.user.shape %>" style="background-color: <%= user.user.color %> !important;"><%= user.username %></a>
+            <% } %>
+        <% }) %>
+    </div><br />
     
     <h2>Explore</h2>
 
@@ -22,7 +32,6 @@
 
     <div id="everyone">
         <% users.forEach(function(user){ %>
-
                 <a href="<%= user.username %>" title="<%= user.username %> (<%= user.user.location %>)" class="box small new-block person shape-<%= user.user.shape %>" style="background-color: <%= user.user.color %> !important;"><%= user.username %></a>
 
         <% }) %>

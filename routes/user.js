@@ -182,6 +182,7 @@ router.put("/:username", isLoggedIn, [
                     profile.user.website = req.body.website;
                     profile.user.shape = req.body.shape;
                     profile.user.color = req.body.color;
+                    profile.user.lastUpdated = new Date();
                     profile.user.songs = {
                         songs_title: req.body.songs_title,
                         song1: req.body.song1,

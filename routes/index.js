@@ -12,6 +12,16 @@ router.get("/", async function(req, res) {
             console.log(err);
         } else {
             if(req.isAuthenticated()){
+                // var recentsArray = []
+                // allUsers.forEach(function(userQuery){
+                //     if(isToday(userQuery.user.lastUpdated)) {
+                //         recentsArray.push(user);
+                //         console.log(userQuery.user.lastUpdated)
+                //     }
+                // });
+
+                // console.log(recentsArray);
+
                 User.findOne({username: res.locals.currentUser.username}, 'user').then(function(data){
                     var friendsArray = data.user.friends.map(function(friend) { 
                       return User.findOne({_id: friend.friend_id }).exec() 
@@ -19,7 +29,6 @@ router.get("/", async function(req, res) {
                     return Promise.all(friendsArray);
                 }).then(function(friendsList){
                     res.render("index", { page: req.url, users: allUsers.reverse(), friends: friendsList });
-                    console.log(friendsList);
                 }).catch(function(err) {
                     throw err;
                 })
@@ -56,5 +65,13 @@ function isLoggedIn(req, res, next){
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
+
+function isToday(someDate) {
+    const today = new Date()
+    return someDate.getDate() == today.getDate() &&
+        someDate.getMonth() == today.getMonth() &&
+        someDate.getFullYear() == today.getFullYear()
+}
+  
 
 module.exports = router;
