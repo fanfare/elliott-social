@@ -7,7 +7,7 @@ const userRoutes = require("./user.js");
 
 /* show home page */
 router.get("/", async function(req, res) {
-    User.aggregate([{$sample: {size: 100}}], async function(err, allUsers) {
+    User.find({}, async function(err, allUsers) {
         if (err) {
             console.log(err);
         } else {
