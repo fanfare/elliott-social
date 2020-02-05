@@ -18,13 +18,13 @@ router.get("/", async function(req, res) {
                     });
                     return Promise.all(friendsArray);
                 }).then(function(friendsList){
-                    res.render("index", { page: req.url, users: allUsers, friends: friendsList });
+                    res.render("index", { page: req.url, users: allUsers.reverse(), friends: friendsList });
                     console.log(friendsList);
                 }).catch(function(err) {
                     throw err;
                 })
             } else { 
-                res.render("index", { page: req.url, users: allUsers });
+                res.render("index", { page: req.url, users: allUsers.reverse() });
             }
         }
     });
