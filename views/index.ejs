@@ -14,7 +14,7 @@
     <div id="updated-today">
         <% users.forEach(function(user){ %>
             <% if (new Date(user.user.lastUpdated).getDate() === new Date().getDate()) { %>
-                <% if(user.user.description || typeof user.user.songs != 'undefined' || typeof user.user.books != 'undefined' || typeof user.user.films != 'undefined' || typeof user.user.links != 'undefined' || typeof user.user.custom != 'undefined') { %>
+                <% if(user.user.description != '' || typeof user.user.songs != 'undefined' || typeof user.user.books != 'undefined' || typeof user.user.films != 'undefined' || typeof user.user.links != 'undefined' || typeof user.user.custom != 'undefined') { %>
                     <a href="<%= user.username %>" title="<%= user.username %> (<%= user.user.location %>)" class="box small new-block" style="background-color: <%= user.user.color %> !important;"><%= user.username %></a>
                 <% } %>
             <% } %>
