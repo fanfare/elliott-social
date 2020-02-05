@@ -71,9 +71,18 @@ nav {
 }
 section {
     margin-bottom: 1em;
-    border: 1px solid #c5c5c5;
+    /* border: 1px solid #c5c5c5; */
     background: #fff;
     padding: 10px;
+}
+#description {
+    white-space: pre-wrap;
+    word-break: break-all;
+    /* border: 0;
+    padding: 0;
+    background: transparent; */
+    font-family: Courier,  'Courier New', monospace;
+    font-size: 14px;
 }
 /* Tabs */
 #tabs {
