@@ -146,7 +146,7 @@
             <section id="description"><%= profile.user.description %></section>
         <% } %>
     
-        <% if(profile.user.songs.song1) { %>
+        <% if(profile.user.songs.songs_title) { %>
             <section>
                 <h3><% if(!profile.user.songs.songs_title) { %>Music<% } else { %><%= profile.user.songs.songs_title %><% } %></h3>
                 <ul>
@@ -162,7 +162,7 @@
             </section>
         <% } %>
     
-        <% if(profile.user.books.book1) { %>
+        <% if(profile.user.books.books_title) { %>
             <section>
                 <h3><% if(!profile.user.books.books_title) { %>Books<% } else { %><%= profile.user.books.books_title %><% } %></h3>
                 <ul>
@@ -178,7 +178,7 @@
             </section>
         <% } %>
 
-        <% if(profile.user.films.film1) { %>
+        <% if(profile.user.films.films_title) { %>
             <section>
                 <h3><% if(!profile.user.films.films_title) { %>Movies<% } else { %><%= profile.user.films.films_title %><% } %></h3>
                 <ul>
@@ -194,7 +194,7 @@
             </section>
         <% } %>
     
-        <% if(profile.user.links.link1) { %>
+        <% if(profile.user.links.links_title) { %>
             <section>
                 <h3><% if(!profile.user.links.links_title) { %>Links<% } else { %><%= profile.user.links.links_title %><% } %></h3>
                 <ul>
