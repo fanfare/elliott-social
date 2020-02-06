@@ -64,15 +64,20 @@
                     </div>
                     <div class="form-group">
                         <label class="editProfileLabel" for="location">Location</label>
-                        <input class="form-control" name="location" value="<%= profile.user.location %>" type="text" placeholder="Location" required>
+                        <input class="form-control" name="location" value="<%= profile.user.location %>" type="text" placeholder="Location" maxlength="40" required>
                     </div>
                     <div class="form-group">
                         <label class="editWebsiteLabel" for="website">Website</label>
                         <input class="form-control" name="website" value="<%= profile.user.website %>" type="url">
                     </div>
                     <div class="form-group">
+                        <label class="editCustomNameLabel" for="name">Name</label>
+                        <input class="form-control" name="customName" value="<%= profile.user.customName %>" type="text" maxlength="35">
+                    </div>
+                    <div class="form-group">
                         <label class="editUsernameLabel" for="username">Username</label>
-                        <input class="form-control" name="username" value="<%= profile.username %>" type="text" required>
+                        <em>(only letters and numbers)</em>
+                        <input class="form-control" name="username" value="<%= profile.username %>" type="text" pattern="[a-zA-Z0-9-]+" maxlength="13" required>
                     </div>
                     <div class="form-group">
                         <label class="editColorLabel" for="color">Color</label><br />
@@ -97,9 +102,7 @@
         </div>
 
         <div id="favorites-tab-content">
-            <section>
-                <!-- <h3>Favorites</h3> -->
-        
+            <section>        
                 <% if(friends.length > 0) { %>
                 <ol>
                     <% friends.forEach(function(friend) { %>
@@ -125,9 +128,8 @@
     <div>
     <% } %>
         <span class="box large" style="background-color: <%= profile.user.color %> !important;"></span> <% if(profile.user.shape){ %><span class="shape <%= profile.user.shape %>"></span><% } %>
-        <h2>
-            <%= profile.username %>
-        </h2>
+
+        <h2><% if(profile.user.customName && profile.user.customName.length > 0){ %><%= profile.user.customName %><% } else { %><%= profile.username %><% } %></h2>
 
         <p>
             <% if(profile.user.website){ %><a href="<%= profile.user.website %>"><%= profile.user.website %></a>, <% } %><%= profile.user.location %>
@@ -225,8 +227,6 @@
                 </ul>
             </section>
         <% } %>
-    
-        <!-- <img src="<%= profile.user.image %>" /> -->
     
         <% if(friends.length > 0) { %>
             <section id="friends-section">

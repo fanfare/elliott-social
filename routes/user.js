@@ -177,6 +177,7 @@ router.put("/:username", isLoggedIn, [
                     res.redirect("/" + req.body.username);
                 } else {
                     profile.username = req.body.username.toLowerCase();
+                    profile.user.customName = req.body.customName;
                     profile.user.description = req.body.description;
                     profile.user.location = req.body.location;
                     profile.user.website = req.body.website;
