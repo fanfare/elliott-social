@@ -77,7 +77,7 @@
                     <div class="form-group">
                         <label class="editUsernameLabel" for="username">Username</label>
                         <em>(only letters, numbers, dashes, and underscores)</em>
-                        <input class="form-control" name="username" value="<%= profile.username %>" type="text" pattern="[a-zA-Z0-9-\-\_]+" maxlength="13" required>
+                        <input class="form-control" name="username" value="<%= profile.username %>" type="text" pattern="^[a-zA-Z0-9_.-]*$" maxlength="13" required>
                     </div>
                     <div class="form-group">
                         <label class="editColorLabel" for="color">Color</label><br />
