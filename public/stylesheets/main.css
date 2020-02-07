@@ -246,7 +246,7 @@ label {
     max-width: 300px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, minmax(100px, 1fr));
+    grid-template-rows: repeat(auto-fit, 100px);
 }
 #friends a {
     display: flex;
@@ -255,6 +255,7 @@ label {
     text-decoration: none;
     padding: 10px;
     text-align: center;
+    height: 100px;
 }
 
 .new-block {
