@@ -131,6 +131,7 @@ input[type=text], input[type=password], input[type=email], input[type=url], text
     margin-bottom: 4px;
     padding: 4px;
     border: 0;
+    outline: none;
 }
 select {
     font-size: 100%;
@@ -178,8 +179,9 @@ input:focus::placeholder, textarea:focus::placeholder {
     opacity: 1;
 }
 textarea {
-    min-height:200px;
+    min-height: 200px;
     resize: vertical;
+    font-family: monospace;
 }
 /* .regular-button {
     font-size: 16px;
