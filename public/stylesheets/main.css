@@ -37,6 +37,10 @@ nav, main {
     padding: 10px;
 }
 img {max-width: 100%;}
+hr {
+    border: 0;
+    border-bottom: 1px solid #ececec;
+}
 
 /* Nav */
 nav {
@@ -120,12 +124,23 @@ section {
 .form-group {
     margin-bottom: 20px;
 }
-input[type=text], input[type=password], input[type=email], input[type=url], textarea, select {
+input[type=text], input[type=password], input[type=email], input[type=url], textarea {
     width: 100%;
     font-size: 100%;
+    background:#f7f7f7;
+    margin-bottom: 4px;
+    padding: 4px;
+    border: 0;
+}
+select {
+    font-size: 100%;
+    width: 100%;
 }
 input[type=color], button {
     font-size: 100%;
+}
+input:focus::placeholder, textarea:focus::placeholder {
+    color: transparent;
 }
 .form-label {
     border: 0;
@@ -170,7 +185,7 @@ textarea {
     font-size: 16px;
     padding: 2px 4px;
 } */
-.tiny-button {
+.regular-button {
     font-size: 12px;
     padding: 2px 4px;
 }
