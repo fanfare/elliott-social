@@ -31,7 +31,7 @@ h2, h3, h4 {
 p, ol, ul, hr {
     margin-bottom: 1em;
 }
-p:last-child, ul:last-child, ol:last-child, li:last-child {
+p:last-child, ul:last-child, ol:last-child, li:last-child, .form-group:last-child {
     margin-bottom: 0;
 }
 nav, main {
@@ -167,10 +167,10 @@ textarea {
     min-height:200px;
     resize: vertical;
 }
-.regular-button {
+/* .regular-button {
     font-size: 16px;
     padding: 2px 4px;
-}
+} */
 .tiny-button {
     font-size: 12px;
     padding: 2px 4px;
@@ -197,17 +197,16 @@ textarea {
 }
 
 /* Form Globals */
-button {
+/* button {
     border: 1px solid #000;
-    /* background: #fff; */
     background: #fff;
     font-size: 100%;
     cursor: pointer;
     font-family: 'Times New Roman', Times, serif;
-}
-button:hover {
+} */
+/* button:hover {
     background: #f0f0f0;
-}
+} */
 label {
     font-weight: bold;
     display: inline-block;
