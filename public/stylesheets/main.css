@@ -119,6 +119,7 @@ section {
 .pebble {background-image: url('../images/pebble.svg');}
 .star {background-image: url('../images/star.svg');}
 .flower {background-image: url('../images/flower.svg');}
+.island {background-image: url('../images/island.svg');}
 
 /* Form */
 .form-group {

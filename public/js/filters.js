@@ -23,3 +23,4 @@ document.querySelector('.leaf').addEventListener('click', function() {filterShap
 document.querySelector('.mushroom').addEventListener('click', function() {filterShape(this);})
 document.querySelector('.pebble').addEventListener('click', function() {filterShape(this);})
 document.querySelector('.star').addEventListener('click', function() {filterShape(this);})
+document.querySelector('.island').addEventListener('click', function() {filterShape(this);})
