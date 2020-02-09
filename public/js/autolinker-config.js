@@ -21,13 +21,10 @@ var autolinker = new Autolinker( {
     className : ''
 } );
 
-var description = document.getElementsByClassName('description-linker')[0];
-var sections = document.getElementsByTagName('section');
-
-description.innerHTML = Autolinker.link(description.innerHTML);
+var linkerElements = document.getElementsByClassName('linker');
 
 console.log(sections);
 
-for (const section of sections) {
-    section.innerHTML = Autolinker.link(section.innerHTML);
+for (const linkerElement of linkerElements) {
+    linkerElement.innerHTML = Autolinker.link(linkerElement.innerHTML);
 }

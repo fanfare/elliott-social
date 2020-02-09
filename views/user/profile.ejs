@@ -147,13 +147,13 @@
 
     
         <% if(profile.user.description) { %>
-            <section id="description" class="description-linker"><%= profile.user.description %></section>
+            <section id="description" class="linker"><%= profile.user.description %></section>
         <% } %>
     
         <% if(profile.user.songs.songs_title || profile.user.songs.song1) { %>
             <section>
                 <h3><% if(!profile.user.songs.songs_title) { %>Music<% } else { %><%= profile.user.songs.songs_title %><% } %></h3>
-                <ul>
+                <ul class="linker">
                     <% if(profile.user.songs.song1) { %><li><%= profile.user.songs.song1 %></li><% } %>
                     <% if(profile.user.songs.song2) { %><li><%= profile.user.songs.song2 %></li><% } %>
                     <% if(profile.user.songs.song3) { %><li><%= profile.user.songs.song3 %></li><% } %>
@@ -169,7 +169,7 @@
         <% if(profile.user.books.books_title || profile.user.books.book1) { %>
             <section>
                 <h3><% if(!profile.user.books.books_title) { %>Books<% } else { %><%= profile.user.books.books_title %><% } %></h3>
-                <ul>
+                <ul class="linker">
                     <% if(profile.user.books.book1) { %><li><%= profile.user.books.book1 %></li><% } %>
                     <% if(profile.user.books.book2) { %><li><%= profile.user.books.book2 %></li><% } %>
                     <% if(profile.user.books.book3) { %><li><%= profile.user.books.book3 %></li><% } %>
@@ -185,7 +185,7 @@
         <% if(profile.user.films.films_title || profile.user.films.film1) { %>
             <section>
                 <h3><% if(!profile.user.films.films_title) { %>Movies<% } else { %><%= profile.user.films.films_title %><% } %></h3>
-                <ul>
+                <ul class="linker">
                     <% if(profile.user.films.film1) { %><li><%= profile.user.films.film1 %></li><% } %>
                     <% if(profile.user.films.film2) { %><li><%= profile.user.films.film2 %></li><% } %>
                     <% if(profile.user.films.film3) { %><li><%= profile.user.films.film3 %></li><% } %>
@@ -201,7 +201,7 @@
         <% if(profile.user.links.links_title || profile.user.links.link1) { %>
             <section>
                 <h3><% if(!profile.user.links.links_title) { %>Links<% } else { %><%= profile.user.links.links_title %><% } %></h3>
-                <ul>
+                <ul class="linker">
                     <% if(profile.user.links.link1) { %><li><%= profile.user.links.link1 %></li><% } %>
                     <% if(profile.user.links.link2) { %><li><%= profile.user.links.link2 %></li><% } %>
                     <% if(profile.user.links.link3) { %><li><%= profile.user.links.link3 %></li><% } %>
@@ -217,7 +217,7 @@
         <% if(profile.user.custom.custom_title || profile.user.custom.custom1) { %>
             <section>
                 <% if(profile.user.custom.custom_title) { %><h3><%= profile.user.custom.custom_title %></h3><% } %>
-                <ul>
+                <ul class="linker">
                     <% if(profile.user.custom.custom1) { %><li><%= profile.user.custom.custom1 %></li><% } %>
                     <% if(profile.user.custom.custom2) { %><li><%= profile.user.custom.custom2 %></li><% } %>
                     <% if(profile.user.custom.custom3) { %><li><%= profile.user.custom.custom3 %></li><% } %>
