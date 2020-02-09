@@ -23,7 +23,7 @@ var autolinker = new Autolinker( {
 
 var linkerElements = document.getElementsByClassName('linker');
 
-console.log(sections);
+console.log(linkerElements);
 
 for (const linkerElement of linkerElements) {
     linkerElement.innerHTML = Autolinker.link(linkerElement.innerHTML);
