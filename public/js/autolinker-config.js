@@ -21,7 +21,7 @@ var autolinker = new Autolinker( {
     className : ''
 } );
 
-var description = document.getElementById('description');
+var description = document.getElementById('description-linker');
 var sections = document.getElementsByTagName('section');
 
 description.innerHTML = Autolinker.link(description.innerHTML);
