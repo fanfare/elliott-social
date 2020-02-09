@@ -5,7 +5,7 @@ const people = document.querySelectorAll('.person');
 var egg = []
 var eggon = false
 var boxon = false
-function easter(e) {
+function crayon(e) {
   try {
     var index = Array.from(e.parentNode.children).indexOf(e)
     egg.push(index)
@@ -44,7 +44,7 @@ function easter(e) {
 }
 
 function filterShape(clickedElement) {
-    easter(clickedElement)
+    crayon(clickedElement)
     filterButtons.forEach((filter) => {
         filter.style.cssText = "border: 1px solid transparent"
     })
